@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/weather/cubit/weather_cubit.dart';
 import 'package:weather_app/weather/cubit/weather_state.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
   Widget getWeatherIcon(int code) {
     switch (code) {
       case >= 200 && < 300:

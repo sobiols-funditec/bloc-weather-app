@@ -25,22 +25,32 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> _onLocationChanged(Position? position) async {
     if (position == null) return;
 
+    // Si la posición sigue siendo dentro de la misma área aproximada, no hacemos nada
+    final approxArea = _approximateArea(position);
+    if (approxArea == _lastAreaName) return;
+
+    _lastAreaName = approxArea;
+
     try {
       emit(WeatherLoading());
-
       final weather = await _weatherRepository.getWeatherByLocation(
         lat: position.latitude,
         lon: position.longitude,
       );
-
-      // 🔴 FILTRO IMPORTANTE
-      if (weather.areaName == _lastAreaName) return;
 
       _lastAreaName = weather.areaName;
       emit(WeatherSuccess(weather));
     } catch (e) {
       emit(WeatherFailure(e.toString()));
     }
+  }
+
+  /// Función para aproximar el área según coordenadas
+  String _approximateArea(Position position) {
+    // Redondeamos lat/lon a 2 decimales (≈1 km de precisión)
+    final lat = position.latitude.toStringAsFixed(2);
+    final lon = position.longitude.toStringAsFixed(2);
+    return '$lat,$lon';
   }
 
   @override

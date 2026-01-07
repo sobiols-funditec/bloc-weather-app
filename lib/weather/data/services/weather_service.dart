@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:geolocator/geolocator.dart';
 import 'package:weather/weather.dart';
+import 'package:weather_app/weather/constants/weather.dart';
 
 class WeatherService {
   WeatherFactory weatherFactory = WeatherFactory(
-    "65704d74b2c3aaa7d54201c0fa5352ee",
+    kCloudApiKey,
     language: Language.ENGLISH,
   );
 

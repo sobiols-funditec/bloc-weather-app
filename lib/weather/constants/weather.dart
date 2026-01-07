@@ -1,0 +1,1 @@
+const kCloudApiKey = "65704d74b2c3aaa7d54201c0fa5352ee";
